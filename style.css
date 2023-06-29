@@ -8,10 +8,11 @@
     width: 100px;
     font-size: 50px;
     margin-left: 25px;
+    margin-bottom: 25px;
   }
   
   .level-button.selected {
-    background-color: chartreuse;
+    background-color: rgba(0, 0, 255, 0.704);
   }
 img {
     width: 30%;
@@ -48,11 +49,13 @@ header {
     justify-content: center;
     padding: 0px 20px;
     overflow: hidden;
-    background: linear-gradient(to bottom right, #55dcc3, #a8e3ca);
+    background: linear-gradient(to bottom right, #55dcc3, chartreuse);
+    /* background: linear-gradient(to bottom right, #55dcc3, #a8e3ca); */
 }
 footer {
     display: flex;
     justify-content: center;
+    background: linear-gradient(to bottom right, #55dcc3, rgb(30, 30, 82));
     background-color: #F2F2F2; 
 }
 .copyr {
@@ -70,5 +73,36 @@ p {
 }
 .level {
     display: flex;
-    margin:2em;
+    margin-left:2em;
+    margin-top: 1em;
+    font-size: 50px;
+}
+.chooseLevel {
+
+}
+.text {
+    font-size: xx-large;
+}
+input {
+    font-size: 45px;
+    margin-left: 10px;
+    padding-left: 5px;
+}
+.valide {
+    display: flex;
+    justify-content: center;
+}
+#valide {
+    margin: 1em 0 1em 25px;
+    background-color: #ccc;
+    height: 100px;
+    width: 400px;
+    font-size: 50px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 30px;
+    box-shadow: 3px 3px aqua;
+}
+#valide:hover {
+    background-color: rgba(0, 0, 255, 0.704);
 }

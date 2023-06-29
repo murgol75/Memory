@@ -1,0 +1,64 @@
+*,body {
+    padding: 0px;
+    margin: 0px;
+}
+header {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: center;
+    padding: 0px 20px;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #55dcc3, chartreuse);
+    /* background: linear-gradient(to bottom right, #55dcc3, #a8e3ca); */
+}
+h1 {
+    padding-top : 20px;
+    font-size: 4em;
+    font-family: 'Caveat', cursive;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333333; 
+    text-shadow: 10px 10px 2px #CCCCCC, 0 0 1em #999999, 0 0 0.2em #CCCCCC;
+}
+.square {
+        width: 15%;
+        padding-bottom: 15%; /* Utilise la même valeur que la largeur pour créer un carré */
+        background-image: url('images/DcDos.jpg');
+        background-size: contain;
+        margin:5px
+}
+.ligne {
+    display: flex;
+    width:100%;
+    justify-content: space-around;
+}
+.tableau {
+    width:80%;
+    /* height: 40vh; */
+    display: flex;
+    flex-direction: column;
+    
+}
+.aireDeJeu {
+    display: flex;
+    justify-content: center;
+}
+.playerName {
+    margin:.5em;
+    font-size: 2em;
+    display: flex;
+    justify-content: space-between;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #55dcc3, rgb(30, 30, 82));
+    background-color: #F2F2F2; 
+}
+.copyr {
+    font-size: 24px;
+    margin: 15px 0px;
+    text-align: center;
+    color: #999999; 
+}

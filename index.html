@@ -5,42 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Jeu du Memory</title>
+    <title>DC Duel of Memories</title>
 </head>
 
 <body>
     <header>
-        <h1>Jeu du Memory</h1>
+        <h1>DC Duel of Memories</h1>
     </header>
     <div class="main">
-        <!-- <div class="image"> -->
-        <img src="./images/memory.jpg"><br>
-        <!-- </div> -->
+        <img src="./images/presentation.jpg"><br>
 
-        <p>Bienvenue dans mon petit jeu de memory, veuillez choisir la taille de votre aire de jeu et indiquer votre nom pour pouvoir jouer</p>
+        <div class="text">
+            <p>Bienvenue dans mon petit jeu de memory, veuillez choisir la taille de votre aire de jeu et indiquer votre
+                nom pour pouvoir jouer</p>
             <p>le système de points est basé sur :</p>
             <ul>
-                <li>la taille du plateau : plus le plateau est grand et plus le ration de points sera élevé</li>
-                <li>le nombre de coups : moins vous faites de coups pour terminer le jeu et plus vous marquez des points</li>
-                <li>la durée du jeu : chaque tableau dispose d'un temps limite, si vous dépassez ce temps, la partie est terminée et votre score est compté, mais si vous terminez avant la fin du chrono, sachez que vous marquerez des points en fonction du temps qu'il vous reste</li>
+                <li><span style="text-decoration: underline;">la taille du plateau :</span> plus le plateau est grand et
+                    plus le ration de points sera élevé</li>
+                <li><span style="text-decoration: underline;">le nombre de coups :</span> moins vous faites de coups
+                    pour terminer le jeu et plus vous marquez des points</li>
+                <li><span style="text-decoration: underline;">la durée du jeu :</span> chaque tableau dispose d'un temps
+                    limite, si vous dépassez ce temps, la partie est terminée et votre score est compté, mais si vous
+                    terminez avant la fin du chrono, sachez que vous marquerez des points en fonction du temps qu'il
+                    vous reste</li>
             </ul>
-        <div class="inscription"> <!-- voir au coté responsive -->
-            <div class="level">
-            <div style="font-size: 50px; margin-top: 20px;">Choisissez la taille</div>
-            <button id="btn-4x3" class="level-button" onclick="selectLevel('4x3')">4x3</button>
-            <button id="btn-4x4" class="level-button" onclick="selectLevel('4x4')">4x4</button>
-            <button id="btn-5x4" class="level-button" onclick="selectLevel('5x4')">5x4</button>
-            <button id="btn-6x5" class="level-button" onclick="selectLevel('6x5')">6x5</button>
-            <button id="btn-6x6" class="level-button" onclick="selectLevel('6x6')">6x6</button>
         </div>
-        <div class="level">
-            <label for="pseudo">Votre Nom :</label>
-            <input type="text" id="pseudo" name="pseudo">
-        </div></div>
+
+        <div class="inscription"> 
+            <div class="level">
+                <div style="font-size: 50px; margin-top: 20px;">Choisissez la taille</div>
+                <div class="chooseLevel">
+                    <button id="btn-4x3" class="level-button" onclick="selectLevel('4x3')">4x3</button>
+                    <button id="btn-4x4" class="level-button" onclick="selectLevel('4x4')">4x4</button>
+                    <button id="btn-5x4" class="level-button" onclick="selectLevel('5x4')">5x4</button>
+                    <button id="btn-6x5" class="level-button" onclick="selectLevel('6x5')">6x5</button>
+                    <button id="btn-6x6" class="level-button" onclick="selectLevel('6x6')">6x6</button>
+                </div>
+            </div>
+
+            <div class="level">
+                <label for="pseudo">Votre Nom :</label>
+                <input type="text" id="pseudo" name="pseudo">
+            </div>
+            <div class="valide">
+                <button id="valide" onclick="valide()">LET'S PLAY</button>
+            </div>
+        </div>
     </div>
+
     <footer>
         <div class="copyr">Copyright © 2023 Tof</div>
-
     </footer>
 
     <script src="script.js"></script>
