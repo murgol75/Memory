@@ -76,14 +76,14 @@ let cartes = [
   {
     id: 10,
     nom: "blackmanta",
-    url: "images/tokens/10black manta.png",
+    url: "images/tokens/10blackmanta.png",
     flipped: false,
     found: false,
   },
   {
     id: 11,
     nom: "greenarrow",
-    url: "images/tokens/11green arrow.png",
+    url: "images/tokens/11greenarrow.png",
     flipped: false,
     found: false,
   },
@@ -97,7 +97,7 @@ let cartes = [
   {
     id: 13,
     nom: "greenlantern",
-    url: "images/tokens/13green lantern.png",
+    url: "images/tokens/13greenlantern.png",
     flipped: false,
     found: false,
   },
@@ -132,7 +132,7 @@ let cartes = [
   {
     id: 18,
     nom: "blackadam",
-    url: "images/tokens/18black adam.png",
+    url: "images/tokens/18blackadam.png",
     flipped: false,
     found: false,
   },
@@ -163,39 +163,50 @@ let addCard = function (index) {
   newCard.id = "index" + index; // j'y ajoute un id="index1" ou 2 ou 3...
   newCard.addEventListener("click", function () {
     // j'ajoute un eventlistener, quand on clique sur cette case il fait ce qui suit
-    if (!card.flipped){
-        card.flipped=!card.flipped; // la carte change de position, de flipped=false elle devient flipped=true
-    selectedCard.push(this); // la carte cliquée est ajoutée au tableau
-    console.log(selectedCard);
-    // revele("index"+ index)
-    const flipped = doublePaquetShuffled.filter(
-      (it) => it.flipped && !it.found
-    ); //il filtre mon paquet pour créer un nouveau tableau (flipped) qui contient les élements qui sont retourné (flipped=true) et qui n'ont pas encore été trouvées (found=false)
-    // console.log(flipped);
-    if (card.flipped) {
+
+    // C'est ICI que le bordel commence... Question, je reviens à ma version ou bien j'essaye de corriger celle du prof ?
+    // problemes, je ne sais cliquer qu'une seule fois sur la carte
+    // je pense que le chrono de 3 secondes fout le bordel, je ne devrais pas pouvoir cliquer tant que les cartes fausses ne sont pas redevenues normales
+    // dès qu'une paire est trouvée, il ne bascule plus les images en face cachée
+    // clairement je vais refaire à ma sauce en m'inspirant du prof un peu qauand meme, mais pas aujourd'hui
+
+    if (!card.flipped) {
+      // si la carte n'est pas retournée, on peut la retourner sinon rien
+      card.flipped = true; // la carte change de position, de flipped=false elle devient flipped=true
+      selectedCard.push(this); // la carte cliquée est ajoutée au tableau
+      const flipped = doublePaquetShuffled.filter(
+        (it) => it.flipped && !it.found
+      ); //il filtre mon paquet pour créer un nouveau tableau (flipped) qui contient les élements qui sont retourné (flipped=true) et qui n'ont pas encore été trouvées (found=false)
+      // console.log(flipped);
+      // if (card.flipped) { // j'ai enlevé ça car d'office comme je fais, on sait que card.flipped est true
       // si la carte est retournée
       toogleImage(this, card.url); // appel de la fonction pour retourner l'image
-    }
+      // }
 
-    if (flipped.length == 2) {
-      // si le nombre de cartes retournées est égal à 2, alors on commence la comparaison
-      const ids = doublePaquetShuffled // ids = le paquet
-        .filter((it) => it.flipped) //filtré par toutes les cartes qui sont retournées
-        .map((it) => it.id); //  est utilisé pour extraire les IDs de ces cartes retournées. Les IDs sont stockés dans le tableau ids.  donc au final ids est un tableau avec 2 id
-      if (ids[0] != ids[1]) {
-        // si les 2 id sont différents
-        flipped.forEach((it) => (it.flipped = false)); // renvoie toutes les cartes flipped true à false
-        setTimeout(() => {
-          // fait l'action qui suit après 3 secondes
-          selectedCard.forEach((it) => toogleImage(it, card.url)); //parcours le tableau de cartes (2 cartes) pour remettre la carte sur DOS
-          selectedCard = []; // vide le tableau
-        }, 1000);
-      } else {
-        // sinon si les 2 sont bons, alors c'est une paire
-        flipped.forEach((it) => (it.found = true)); // transforme la valeur found des 2 cartes sur true
+      if (flipped.length == 2) {
+        // si le nombre de cartes retournées est égal à 2, alors on commence la comparaison
+        const ids = doublePaquetShuffled // ids = le paquet
+          .filter((it) => it.flipped) //filtré par toutes les cartes qui sont retournées
+          .map((it) => it.id); //  est utilisé pour extraire les IDs de ces cartes retournées. Les IDs sont stockés dans le tableau ids.  donc au final ids est un tableau avec 2 id
+        console.log(ids)
+          if (ids[0] != ids[1]) {
+          // si les 2 id sont différents
+          flipped.forEach((it) => (it.flipped = false)); // renvoie toutes les cartes flipped true à false
+          setTimeout(() => {
+            // fait l'action qui suit après 3 secondes...
+            // disableInteraction();
+            selectedCard.forEach((it) => toogleImage(it, card.url)); //parcours le tableau de cartes (2 cartes) pour remettre la carte sur DOS
+            selectedCard = []; // vide le tableau
+            // setTimeout(enableInteraction, 1000);
+          }, 1000);
+        } else {
+          // sinon si les 2 sont bons, alors c'est une paire
+          flipped.forEach((it) => (it.found = true)); // transforme la valeur found des 2 cartes sur true
+        }
       }
     }
-  }});
+  });
+
   parentLine.appendChild(newCard); // ajoute la carte dans la ligne
 };
 
@@ -234,71 +245,110 @@ function afficherGrille() {
 afficherGrille();
 
 //#region  ne sert plus car attachée à la fonction revele
-let flippedcards = 0; // ne sert plus car attachée à la fonction revele
-let foundPairs = 0; // ne sert plus car attachée à la fonction revele
-let ancienneCarte = null; // ne sert plus car attachée à la fonction revele
-let idCarte1 = 0; // ne sert plus car attachée à la fonction revele
-let flippedCard = null; // ne sert plus car attachée à la fonction revele
+// let flippedcards = 0; // ne sert plus car attachée à la fonction revele
+// let foundPairs = 0; // ne sert plus car attachée à la fonction revele
+// let ancienneCarte = null; // ne sert plus car attachée à la fonction revele
+// let idCarte1 = 0; // ne sert plus car attachée à la fonction revele
+// let flippedCard = null; // ne sert plus car attachée à la fonction revele
 
-function revele(carte) {
-  // ancienne version de moi, qui ne fonctionne plus depuis l'intervention prof puisqu'il a mis un addeventlistener à la création de la carte
-  // trouver l'index dans le tableau sur base de carte
-  let chaine = carte;
-  let bonIndex = chaine.match(/\d+/)[0];
-  // Conversion de la valeur en nombre entier
-  bonIndex = parseInt(bonIndex);
+// function revele(carte) {
+//   // ancienne version de moi, qui ne fonctionne plus depuis l'intervention prof puisqu'il a mis un addeventlistener à la création de la carte
+//   // trouver l'index dans le tableau sur base de carte
+//   let chaine = carte;
+//   let bonIndex = chaine.match(/\d+/)[0];
+//   // Conversion de la valeur en nombre entier
+//   bonIndex = parseInt(bonIndex);
 
-  // recuperer l'id de la carte pour comparaison
-  let currentCardId = doublePaquetShuffled[bonIndex].id;
+//   // recuperer l'id de la carte pour comparaison
+//   let currentCardId = doublePaquetShuffled[bonIndex].id;
 
-  // récuperer la carte sur laquelle je viens de cliquer
-  flippedCard = document.getElementById(carte);
+//   // récuperer la carte sur laquelle je viens de cliquer
+//   flippedCard = document.getElementById(carte);
 
-  // supprimer onclick pour qu'on ne puisse pas recliquer dessus
-  // flippedCard.onclick = null;
-  flippedCard.removeEventListener("click", flippedCard);
+//   // supprimer onclick pour qu'on ne puisse pas recliquer dessus
+//   // flippedCard.onclick = null;
+//   flippedCard.removeEventListener("click", flippedCard);
 
-  // ajouter 1 à flippedcards (donc soit il passe de 0 à 1 soit de 1 à 2, puisque s'il est à 2, il repasse à 0)
-  flippedcards += 1;
+//   // ajouter 1 à flippedcards (donc soit il passe de 0 à 1 soit de 1 à 2, puisque s'il est à 2, il repasse à 0)
+//   flippedcards += 1;
 
-  // afficher le dessin de la carte.
-  let url = doublePaquetShuffled[bonIndex].url; //récupère l'url de la carte
-  flippedCard.style.backgroundImage = `url(${url})`; //remplace DcDos par la bonne image
+//   // afficher le dessin de la carte.
+//   let url = doublePaquetShuffled[bonIndex].url; //récupère l'url de la carte
+//   flippedCard.style.backgroundImage = `url(${url})`; //remplace DcDos par la bonne image
 
-  // si c'est la première carte, il faut l'enregistrer pour la comparer après
-  if (flippedcards == 1) {
-    ancienneCarte = flippedCard;
-    idCarte1 = doublePaquetShuffled[bonIndex].id;
-    indexCarte1 = bonIndex;
-    // sinon, c'est que c'est la 2eme, du coup, il faut remettre le compteur des cartes retournées à 0 et vérifier si les 2 cartes sont identiques.  Si c'est le cas, on ajoute 1 aux paires trouvées, on vérifie si paires trouvées = maxpaires, et si oui, c'est gagné
-  } else {
-    console.log(
-      { card: ancienneCarte, id: idCarte1 },
-      { card: flippedCard, id: currentCardId }
-    );
-    flippedcards = 0;
-    if (currentCardId == idCarte1) {
-      foundPairs += 1;
-      if (foundPairs == nbrPairs) {
-        alert("C'est Gagné");
-      }
-    } else {
-      // on retourne les cartes
-      setTimeout(() => {
-        ancienneCarte.style.backgroundImage = "url('images/DcDos.jpg')";
-        flippedCard.style.backgroundImage = "url('images/DcDos.jpg')";
-        // on remets onclick
-        //   flippedCard.onclick = "revele('index" + bonIndex + "')";
-        //   ancienneCarte.onclick = "revele('index" + indexCarte1 + "')";
-        flippedCard.addEventListener("click", () => revele("index" + bonIndex));
-        ancienneCarte.addEventListener("click", () =>
-          revele("index" + indexCarte1)
-        );
-        ancienneCarte = null;
-        flippedCard = null;
-      }, 1000);
-    }
+//   // si c'est la première carte, il faut l'enregistrer pour la comparer après
+//   if (flippedcards == 1) {
+//     ancienneCarte = flippedCard;
+//     idCarte1 = doublePaquetShuffled[bonIndex].id;
+//     indexCarte1 = bonIndex;
+//     // sinon, c'est que c'est la 2eme, du coup, il faut remettre le compteur des cartes retournées à 0 et vérifier si les 2 cartes sont identiques.  Si c'est le cas, on ajoute 1 aux paires trouvées, on vérifie si paires trouvées = maxpaires, et si oui, c'est gagné
+//   } else {
+//     console.log(
+//       { card: ancienneCarte, id: idCarte1 },
+//       { card: flippedCard, id: currentCardId }
+//     );
+//     flippedcards = 0;
+//     if (currentCardId == idCarte1) {
+//       foundPairs += 1;
+//       if (foundPairs == nbrPairs) {
+//         alert("C'est Gagné");
+//       }
+//     } else {
+//       // on retourne les cartes
+//       setTimeout(() => {
+//         ancienneCarte.style.backgroundImage = "url('images/DcDos.jpg')";
+//         flippedCard.style.backgroundImage = "url('images/DcDos.jpg')";
+//         // on remets onclick
+//         //   flippedCard.onclick = "revele('index" + bonIndex + "')";
+//         //   ancienneCarte.onclick = "revele('index" + indexCarte1 + "')";
+//         flippedCard.addEventListener("click", () => revele("index" + bonIndex));
+//         ancienneCarte.addEventListener("click", () =>
+//           revele("index" + indexCarte1)
+//         );
+//         ancienneCarte = null;
+//         flippedCard = null;
+//       }, 1000);
+//     }
+//   }
+// }
+
+//#endregion
+
+
+//#region empecher les actions pendant que les images s'éffacent
+
+// Désactive les interactions avec les éléments
+function disableInteraction() {
+    // Ajoute une classe CSS pour désactiver les éléments interactifs
+    document.body.classList.add('disable-interaction');
+  
+    // Désactive les événements d'interaction
+    document.body.style.pointerEvents = 'none';
   }
-}
+  
+  // Réactive les interactions avec les éléments
+  function enableInteraction() {
+    // Supprime la classe CSS pour réactiver les éléments interactifs
+    document.body.classList.remove('disable-interaction');
+  
+    // Réactive les événements d'interaction
+    document.body.style.pointerEvents = 'auto';
+  }
+  
+//   // Utilisation de la fonction setTimeout avec la désactivation des interactions
+//   setTimeout(() => {
+//     // Désactive les interactions avec les éléments
+//     disableInteraction();
+  
+//     // Fait l'action qui suit après 3 secondes...
+//     selectedCard.forEach((it) => toogleImage(it, card.url)); // parcours le tableau de cartes (2 cartes) pour remettre la carte sur DOS
+//     selectedCard = []; // vide le tableau
+  
+//     // Réactive les interactions avec les éléments après 1 seconde
+//     setTimeout(enableInteraction, 1000);
+//   }, 1000);
+  
+
+
 
 //#endregion
