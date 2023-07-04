@@ -22,8 +22,8 @@ h1 {
     text-shadow: 10px 10px 2px #CCCCCC, 0 0 1em #999999, 0 0 0.2em #CCCCCC;
 }
 .square {
-        width: 15%;
-        padding-bottom: 15%; /* Utilise la même valeur que la largeur pour créer un carré */
+        width: 10%;
+        padding-bottom: 10%; /* Utilise la même valeur que la largeur pour créer un carré */
         background-image: url('images/DcDos.jpg');
         background-size: contain;
         margin:5px

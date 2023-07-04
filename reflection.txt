@@ -1,0 +1,7 @@
+pour gerer le temps
+
+prendre l'heure et secondes au moment du premier click
+pendant le jeu, vérifier si l'heure actuelle >= que l'heure de départ + la valeur max
+
+question, comment afficher le chrono ?
+

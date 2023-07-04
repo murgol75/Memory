@@ -12,15 +12,25 @@ Cartes mélangées : Utilisez un algorithme pour mélanger les cartes de manièr
 
 SCORE
 bassé sur le nombre d'essais
-le nombre de coups max = X.Y
+le nombre de coups max = X.Y.2 (donc si 4x3 = 24 coups max)
 1 coup = 1 paire
 Score = (coups Max - coups joués) * poids
 
 poids = 
-4x3 = 10
-4x4 = 15
-5x4 = 20
-6x5 = 25
-6x6 = 30
+4x3 = 10 : 12 je vais prendre la 2eme valeur, comme ça j'ai le calcul tout fait abs x ord
+4x4 = 15 : 16
+5x4 = 20 : 20
+6x5 = 25 : 30
+6x6 = 30 : 36
 
 + basé sur le temps
+
+
+
+pour fin : récupérer le nom du joueur, 
+1. (le nombre de coups max - coups joués ) * abscisse * ordonnee 
+2. TotalTime - countdown (le nombre de secondes restantes) *10
+
+score total = 1+2
+
+
