@@ -4,22 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="fin.css">
+    <link rel="stylesheet" type="text/css" href="./style/fin.css">
     <title>DC Duel of Memories</title>
 </head>
 
 <body>
     <header>
-        <h1>JEU FINI</h1>
+        <h1>DC Duel of Memories</h1>
+
     </header>
     <div class="main">
-        <p>si coups joué > coups max : 0</p>
-        <p>sinon (coupsmax - coups joués) * abscice * ordonnee (penser à les récuperer du localstorage)</p>
-        <p>si countdown=0 : 0</p>
-        <p>sinon countdown*10 </p>
-        <p>afficher : temps mis : X sur Y => Z points</p>
-        <p>nombre de coups : A sur coups max => B points</p>
-        <p>total = Z + B</p>
+        <p>FELICITATIONS <span id="playerName"></span></p>
+        <img src="./images/victory.png" alt="Batman's victory">
+        <p>VOICI TON SCORE : <span id="score">0</span> pts</p>
+        <table>
+            <theader>
+                <tr>
+                    <th>position</th>
+                    <th>score</th>
+                    <th>pseudo</th>
+                    <th>date</th>
+                </tr>
+            </theader>
+            <tbody id="tableScore">
+
+            </tbody>
+        </table>
+
         <button id="again">recommencer</button>
     </div>
 
@@ -27,7 +38,7 @@
         <div class="copyr">Copyright © 2023 Tof</div>
     </footer>
 
-    <script src="fin.js"></script>
+    <script src="./scripts/fin.js"></script>
 </body>
 
 </html>

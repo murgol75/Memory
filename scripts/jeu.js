@@ -1,12 +1,26 @@
 //#region récupération du localstorage
 
-let valeurs = JSON.parse(localStorage.getItem("donnees"));
-let pseudo = valeurs.pseudo;
-let abscisse = valeurs.abscisse;
-let ordonnee = valeurs.ordonnee;
+let playerAndBoardValues = JSON.parse(localStorage.getItem("donnees"));
+let pseudo = playerAndBoardValues.pseudo;
+let abscisse = playerAndBoardValues.abscisse;
+let ordonnee = playerAndBoardValues.ordonnee;
 let foundPairs = 0;
 let startGame = false;
 let nom = document.getElementById("joueur");
+
+// localStorage.clear()
+let scoreTab
+let scoreRanking = JSON.parse(localStorage.getItem("score"))
+if (!scoreRanking) {
+  scoreTab = [];
+
+}
+else {
+  
+  scoreTab = scoreRanking.ranking
+}
+console.log(scoreRanking)
+
 
 nom.innerHTML = pseudo;
 
@@ -22,7 +36,6 @@ const countDownElement = document.getElementById("chrono"); // reperer l'emplace
 function updateChrono() {
   
   countDown -= 1;
-  console.log(countDown);
   secondes = countDown % 60;
   if (secondes < 10) { secondes = "0" + countDown % 60 }
   minutes = Math.floor(countDown / 60);
@@ -41,7 +54,6 @@ updateChrono();
 //#region score
 
 let coupsMax = abscisse*ordonnee*2;
-let coupsJoue = 0;
 let totalTime = countDown;
 
 
@@ -54,126 +66,126 @@ let cartes = [
   {
     id: 1,
     nom: "batman",
-    url: "images/tokens/01batman.png",
+    url: "images/01batman.png",
     flipped: false,
     found: false,
   },
   {
     id: 2,
     nom: "joker",
-    url: "images/tokens/02joker.png",
+    url: "images/02joker.png",
     flipped: false,
     found: false,
   },
   {
     id: 3,
     nom: "superman",
-    url: "images/tokens/03superman.png",
+    url: "images/03superman.png",
     flipped: false,
     found: false,
   },
   {
     id: 4,
     nom: "luthor",
-    url: "images/tokens/04luthor.png",
+    url: "images/04luthor.png",
     flipped: false,
     found: false,
   },
   {
     id: 5,
     nom: "wonderwoman",
-    url: "images/tokens/05wonderwoman.png",
+    url: "images/05wonderwoman.png",
     flipped: false,
     found: false,
   },
   {
     id: 6,
     nom: "sheetha",
-    url: "images/tokens/06sheetha.png",
+    url: "images/06sheetha.png",
     flipped: false,
     found: false,
   },
   {
     id: 7,
     nom: "flash",
-    url: "images/tokens/07flash.png",
+    url: "images/07flash.png",
     flipped: false,
     found: false,
   },
   {
     id: 8,
     nom: "negaflash",
-    url: "images/tokens/08negaflash.png",
+    url: "images/08negaflash.png",
     flipped: false,
     found: false,
   },
   {
     id: 9,
     nom: "aquaman",
-    url: "images/tokens/09aquaman.png",
+    url: "images/09aquaman.png",
     flipped: false,
     found: false,
   },
   {
     id: 10,
     nom: "blackmanta",
-    url: "images/tokens/10blackmanta.png",
+    url: "images/10blackmanta.png",
     flipped: false,
     found: false,
   },
   {
     id: 11,
     nom: "greenarrow",
-    url: "images/tokens/11greenarrow.png",
+    url: "images/11greenarrow.png",
     flipped: false,
     found: false,
   },
   {
     id: 12,
     nom: "merlyn",
-    url: "images/tokens/12merlyn.png",
+    url: "images/12merlyn.png",
     flipped: false,
     found: false,
   },
   {
     id: 13,
     nom: "greenlantern",
-    url: "images/tokens/13greenlantern.png",
+    url: "images/13greenlantern.png",
     flipped: false,
     found: false,
   },
   {
     id: 14,
     nom: "sinestro",
-    url: "images/tokens/14sinestro.png",
+    url: "images/14sinestro.png",
     flipped: false,
     found: false,
   },
   {
     id: 15,
     nom: "martian",
-    url: "images/tokens/15martian.png",
+    url: "images/15martian.png",
     flipped: false,
     found: false,
   },
   {
     id: 16,
     nom: "maalefaak",
-    url: "images/tokens/16maalefaak.png",
+    url: "images/16maalefaak.png",
     flipped: false,
     found: false,
   },
   {
     id: 17,
     nom: "shazam",
-    url: "images/tokens/17shazam.png",
+    url: "images/17shazam.png",
     flipped: false,
     found: false,
   },
   {
     id: 18,
     nom: "blackadam",
-    url: "images/tokens/18blackadam.png",
+    url: "images/18blackadam.png",
     flipped: false,
     found: false,
   },
@@ -213,6 +225,7 @@ let addCard = function (index) {
       startGame = true;
       interval = setInterval(updateChrono, 1000);
     }
+    new Audio('sounds/CardFlip.mp3').play()
     // retourner la carte
     if (card.found == false && card.flipped == false) {
 
@@ -232,7 +245,10 @@ let addCard = function (index) {
       if (count == 2) {
         console.log("selectedCard : ");
         console.log(selectedCard);
-        coupsJoue+=1
+        if (coupsMax>0) {
+          coupsMax-=1
+        }
+        
 
         // on remet le compteur de true à 0
         flippedcards = []
@@ -344,12 +360,23 @@ function enableMouseClicks() {
 
 
 function gameOver() {
-  alert("Game Over");
+  alert("Partie terminée, cliquez sur OK pour voire votre classement");
+  // calcul des scores avant d'envoyer sur fin
+  let scoreNbrAttemps=coupsMax*abscisse*ordonnee
+  let scoreTimeLeft=countDown*10
+  let scoreTotal=scoreNbrAttemps+scoreTimeLeft
+  
+  let recordPlayer={
+    playerName:pseudo,
+    score:scoreTotal,
+    time:new Date()
+  }
+  scoreTab.push(recordPlayer);
+
   let scoreValues = {
-    coupsMax:coupsMax,
-    coupsJoue:coupsJoue,
-    tempsTotal:totalTime,
-    tempsRestant:countDown
+    pseudo:pseudo,
+    scoreTotal:scoreTotal,
+    ranking:scoreTab
   }
   let scoreJson = JSON.stringify(scoreValues);
   localStorage.setItem("score", scoreJson);

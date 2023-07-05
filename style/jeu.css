@@ -24,7 +24,7 @@ h1 {
 .square {
         width: 10%;
         padding-bottom: 10%; /* Utilise la même valeur que la largeur pour créer un carré */
-        background-image: url('images/DcDos.jpg');
+        background-image: url('../images/DcDos.jpg');
         background-size: contain;
         margin:5px
 }
