@@ -53,6 +53,16 @@ img {
     width: 400px;
     margin:1em auto;
 }
+h2 {
+    padding-top : 20px;
+    font-size: 4em;
+    font-family: 'Caveat', cursive;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: red; 
+    text-align: center;
+    /* text-shadow: 10px 10px 2px #CCCCCC, 0 0 1em #999999, 0 0 0.2em #CCCCCC; */
+}
 /*#endregion MAIN*/
 
 /*#region TABLEAU*/

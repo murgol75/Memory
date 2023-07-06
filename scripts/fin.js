@@ -23,6 +23,7 @@ let tBody=document.getElementById("tableScore")
 let rankNumber=1
 
 tabScore.forEach(data => {
+  if (rankNumber<=10) {
   let row = document.createElement('tr');
   
   let rank=document.createElement("td");
@@ -45,7 +46,7 @@ tabScore.forEach(data => {
   row.appendChild(timeCell);
   
   tBody.appendChild(row);
-  rankNumber+=1
+  rankNumber+=1}
 });
 //#endregion
 
