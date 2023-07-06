@@ -1,5 +1,7 @@
-x=0
-y=0
+let numberOfRow=0
+let numberOfColumn=0
+
+//#region fonction pour mettre en surbrillance le bouton choisi et definir l'abscisse et l'ordonnée
 
 function selectLevel(level) {
   // Récupérer tous les boutons de niveau
@@ -14,29 +16,35 @@ function selectLevel(level) {
   let selectedButton = document.getElementById('btn-' + level);
   selectedButton.classList.add('selected');
 
-  // déclaration de la taille du tableau en X et Y
+  // déclaration de la taille du tableau en numberOfRow et numberOfColumn
   let xy=level.split("x");
-  x=parseInt(xy[0],10)
-  y=parseInt(xy[1],10)
+  numberOfRow=parseInt(xy[0],10)
+  numberOfColumn=parseInt(xy[1],10)
 }
 
-document.getElementById("valide").addEventListener("click", function(event) {
+//#endregion
+
+
+//#region fonction pour valider l'enregistrement et passer à la suite si tout est remplis
+
+document.getElementById("validate").addEventListener("click", function(event) {
   event.preventDefault(); // Empêche la soumission du formulaire (rechargement de la page)
   let pseudo=document.getElementById("pseudo").value;
   if (pseudo=="") {
     alert("vous n'avez pas indiqué votre nom")
     return;
   }
-  if (x==0) {
+  if (numberOfRow==0) {
     alert("vous n'avez pas choisi le niveau")
     return;
   }
-  let valeurs = {
+  // envoi des valeurs dans le LocalStorage
+  let gameData = {
     pseudo : pseudo,
-    abscisse : x,
-    ordonnee : y
+    abscisse : numberOfRow,
+    ordonnee : numberOfColumn
   }
-  let valeurJson = JSON.stringify(valeurs);
-  localStorage.setItem("donnees", valeurJson);
+  let gameDataJson = JSON.stringify(gameData);
+  localStorage.setItem("gameData", gameDataJson);
   window.location.href = "jeu.html";
 })

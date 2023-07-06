@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr-be">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="./style/jeu.css">
     <title>DC Duel of Memories</title>
 </head>
@@ -12,15 +13,35 @@
     <header>
         <h1>DC Duel of Memories</h1>
     </header>
+
     <div class="main">
         <div class="playerName">
-            <p>Nom du joueur : <span id="joueur"></span></p>
+            <p>Nom du joueur : <span id="player"></span></p>
             <p id="chrono">Chronometre</p>
         </div>
     </div>
-    <div class="aireDeJeu">
+
+    <div class="playGround">
         <div class="tableau" id="game"></div>
     </div>
+    
+    <!-- Modal qui apparait en fin de partie-->
+    <div class="w3-container">
+          <div id="modal" class="w3-modal w3-animate-opacity" style="display: none;">
+            <div class="w3-modal-content w3-card-4">
+                <header class="w3-container w3-teal"> 
+                    <h2 class="w3-center">PARTIE TERMINEE</h2>
+                </header>
+                <div class="w3-container">
+                    <p class="w3-xlarge w3-center">Appuyez sur &lt;enter> pour voir votre Score</p>
+                </div>
+                <footer class="w3-container w3-teal">
+                    <p class="copyr w3-medium">Copyright © 2023 Tof</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="copyr">Copyright © 2023 Tof</div>
     </footer>

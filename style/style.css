@@ -1,36 +1,19 @@
+/*#region GENERAL*/
 *,body {
     padding: 0px;
     margin: 0px;
 }
-.level-button {
-    background-color: #ccc;
-    height: 100px;
-    width: 100px;
-    font-size: 50px;
-    margin-left: 25px;
-    margin-bottom: 25px;
-  }
-.level-button.selected {
-    background-color: rgba(0, 0, 255, 0.704);
-  }
-img {
-    width: 30%;
-    display: inline-block;
-    margin: auto;
-}
-.inscription {
+/*#endregion GENERAL*/
+
+/*#region HEADER */
+header {
     display: flex;
-    flex-direction: column;
-}
-.main {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    list-style-type: none;
     justify-content: center;
-    margin-top: 2em;
-}
-.image {
-    display: flex;
-    justify-content: center;
+    padding: 0px 20px;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #55dcc3, chartreuse);
 }
 h1 {
     padding-top : 20px;
@@ -41,16 +24,89 @@ h1 {
     color: #333333; 
     text-shadow: 10px 10px 2px #CCCCCC, 0 0 1em #999999, 0 0 0.2em #CCCCCC;
 }
-header {
+/*#endregion HEADER*/
+
+/*#region MAIN */
+.main {
     display: flex;
-    flex-direction: row;
-    list-style-type: none;
+    flex-direction: column;
     justify-content: center;
-    padding: 0px 20px;
-    overflow: hidden;
-    background: linear-gradient(to bottom right, #55dcc3, chartreuse);
-    /* background: linear-gradient(to bottom right, #55dcc3, #a8e3ca); */
+    margin-top: 2em;
 }
+ul {
+    list-style: square;
+    margin-left: 2em;
+}
+p {
+    margin-left: 1em;
+}
+.text {
+    font-size: xx-large;
+}
+/*#endregion MAIN*/
+
+/*#region IMAGE */
+img {
+    width: 30%;
+    display: inline-block;
+    margin: auto;
+}
+/*#endregion IMAGE*/
+
+/*#region INSCRIPTION */
+.level-button {
+    background-color: #ccc;
+    height: 100px;
+    width: 100px;
+    font-size: 50px;
+    margin-left: 25px;
+    margin-bottom: 25px;
+}
+.level-button.selected {
+    background-color: rgba(0, 0, 255, 0.704);
+}
+.inscription {
+    display: flex;
+    flex-direction: column;
+}
+.playerName {
+    display: flex;
+    margin-left:2em;
+    margin-top: 1em;
+    font-size: 50px;
+}
+.level {
+    display: flex;
+    margin-left:2em;
+    margin-top: 1em;
+    font-size: 50px;
+}
+input {
+    font-size: 45px;
+    margin-left: 10px;
+    padding-left: 5px;
+}
+.validate {
+    display: flex;
+    justify-content: center;
+}
+#validate {
+    margin: 1em 0 1em 25px;
+    background-color: #ccc;
+    height: 100px;
+    width: 400px;
+    font-size: 50px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 30px;
+    box-shadow: 3px 3px aqua;
+}
+#validate:hover {
+    background-color: rgba(0, 0, 255, 0.704);
+}
+/*#endregion INSCRIPTION*/
+
+/*#region FOOTER */
 footer {
     display: flex;
     justify-content: center;
@@ -63,45 +119,4 @@ footer {
     text-align: center;
     color: #999999; 
 }
-ul {
-    list-style: square;
-}
-ul {margin-left: 2em;}
-p {
-    margin-left: 1em;
-}
-.level {
-    display: flex;
-    margin-left:2em;
-    margin-top: 1em;
-    font-size: 50px;
-}
-.chooseLevel {
-
-}
-.text {
-    font-size: xx-large;
-}
-input {
-    font-size: 45px;
-    margin-left: 10px;
-    padding-left: 5px;
-}
-.valide {
-    display: flex;
-    justify-content: center;
-}
-#valide {
-    margin: 1em 0 1em 25px;
-    background-color: #ccc;
-    height: 100px;
-    width: 400px;
-    font-size: 50px;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 30px;
-    box-shadow: 3px 3px aqua;
-}
-#valide:hover {
-    background-color: rgba(0, 0, 255, 0.704);
-}
+/*#endregion FOOTER*/

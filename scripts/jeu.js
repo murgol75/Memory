@@ -1,14 +1,13 @@
 //#region récupération du localstorage
 
-let playerAndBoardValues = JSON.parse(localStorage.getItem("donnees"));
+let playerAndBoardValues = JSON.parse(localStorage.getItem("gameData"));
 let pseudo = playerAndBoardValues.pseudo;
 let abscisse = playerAndBoardValues.abscisse;
 let ordonnee = playerAndBoardValues.ordonnee;
 let foundPairs = 0;
 let startGame = false;
-let nom = document.getElementById("joueur");
+let playerName = document.getElementById("player");
 
-// localStorage.clear()
 let scoreTab
 let scoreRanking = JSON.parse(localStorage.getItem("score"))
 if (!scoreRanking) {
@@ -22,7 +21,7 @@ else {
 console.log(scoreRanking)
 
 
-nom.innerHTML = pseudo;
+playerName.innerHTML = pseudo;
 
 
 //#endregion
@@ -32,7 +31,7 @@ let interval;
 let countDown = (ordonnee * abscisse * 4)+1; // temps max en secondes pour la partie
 let minutes = 0;
 let secondes = 0;
-const countDownElement = document.getElementById("chrono"); // reperer l'emplacement dans mon html
+const countDownElement = document.getElementById("chrono"); 
 function updateChrono() {
   
   countDown -= 1;
@@ -51,9 +50,9 @@ updateChrono();
 
 //#endregion
 
-//#region score
+//#region Initation du nombre d'essais et du temps limite
 
-let coupsMax = abscisse*ordonnee*2;
+let maxAttempts = abscisse*ordonnee*2;
 let totalTime = countDown;
 
 
@@ -66,126 +65,126 @@ let cartes = [
   {
     id: 1,
     nom: "batman",
-    url: "images/01batman.png",
+    url: "pictures/01batman.png",
     flipped: false,
     found: false,
   },
   {
     id: 2,
     nom: "joker",
-    url: "images/02joker.png",
+    url: "pictures/02joker.png",
     flipped: false,
     found: false,
   },
   {
     id: 3,
     nom: "superman",
-    url: "images/03superman.png",
+    url: "pictures/03superman.png",
     flipped: false,
     found: false,
   },
   {
     id: 4,
     nom: "luthor",
-    url: "images/04luthor.png",
+    url: "pictures/04luthor.png",
     flipped: false,
     found: false,
   },
   {
     id: 5,
     nom: "wonderwoman",
-    url: "images/05wonderwoman.png",
+    url: "pictures/05wonderwoman.png",
     flipped: false,
     found: false,
   },
   {
     id: 6,
     nom: "sheetha",
-    url: "images/06sheetha.png",
+    url: "pictures/06sheetha.png",
     flipped: false,
     found: false,
   },
   {
     id: 7,
     nom: "flash",
-    url: "images/07flash.png",
+    url: "pictures/07flash.png",
     flipped: false,
     found: false,
   },
   {
     id: 8,
     nom: "negaflash",
-    url: "images/08negaflash.png",
+    url: "pictures/08negaflash.png",
     flipped: false,
     found: false,
   },
   {
     id: 9,
     nom: "aquaman",
-    url: "images/09aquaman.png",
+    url: "pictures/09aquaman.png",
     flipped: false,
     found: false,
   },
   {
     id: 10,
     nom: "blackmanta",
-    url: "images/10blackmanta.png",
+    url: "pictures/10blackmanta.png",
     flipped: false,
     found: false,
   },
   {
     id: 11,
     nom: "greenarrow",
-    url: "images/11greenarrow.png",
+    url: "pictures/11greenarrow.png",
     flipped: false,
     found: false,
   },
   {
     id: 12,
     nom: "merlyn",
-    url: "images/12merlyn.png",
+    url: "pictures/12merlyn.png",
     flipped: false,
     found: false,
   },
   {
     id: 13,
     nom: "greenlantern",
-    url: "images/13greenlantern.png",
+    url: "pictures/13greenlantern.png",
     flipped: false,
     found: false,
   },
   {
     id: 14,
     nom: "sinestro",
-    url: "images/14sinestro.png",
+    url: "pictures/14sinestro.png",
     flipped: false,
     found: false,
   },
   {
     id: 15,
     nom: "martian",
-    url: "images/15martian.png",
+    url: "pictures/15martian.png",
     flipped: false,
     found: false,
   },
   {
     id: 16,
     nom: "maalefaak",
-    url: "images/16maalefaak.png",
+    url: "pictures/16maalefaak.png",
     flipped: false,
     found: false,
   },
   {
     id: 17,
     nom: "shazam",
-    url: "images/17shazam.png",
+    url: "pictures/17shazam.png",
     flipped: false,
     found: false,
   },
   {
     id: 18,
     nom: "blackadam",
-    url: "images/18blackadam.png",
+    url: "pictures/18blackadam.png",
     flipped: false,
     found: false,
   },
@@ -197,7 +196,7 @@ let cartes = [
 //#region installer les cartes
 let nbrPairs = (abscisse * ordonnee) / 2;
 const paquetShuffled = [...cartes].sort((a, b) => 0.5 - Math.random()); // on crée le paquet mélangé en lui ajoutant cartes, qui est mélangé
-const slice = paquetShuffled.slice(0, nbrPairs); // il découpé le tableau pour n'en prendre que les nbrPairs éléments
+const slice = paquetShuffled.slice(0, nbrPairs); // il découpe le tableau pour n'en prendre que les nbrPairs éléments
 const doublePaquetShuffled = [
   ...slice.map((it) => ({ ...it })),
   ...slice.map((it) => ({ ...it })),
@@ -207,10 +206,10 @@ const parentElement = document.getElementById("game");
 
 let lineNumber = 1;
 
-let selectedCard = []; // création d'un tableau qui sera utilisé dans la fonction addCard
-let savedNode = []; // création d'un tableau qui sera utilisé dans la fonction addCard
+let selectedCard = []; // création d'un tableau qui sera utilisé dans la fonction addCard pour stocker les cartes cliquées
+let savedNode = []; // création d'un tableau qui sera utilisé dans la fonction addCard pour stocker l'index de la carte
 
-
+//#region initialisation de la carte et gestion du jeu
 let addCard = function (index) {
   // début de la fonction qui prend en parametre index, elle vient de la fonction affichergrille
   const card = doublePaquetShuffled[index]; // Card est égal à la carte du paquet avec le bon index
@@ -225,18 +224,18 @@ let addCard = function (index) {
       startGame = true;
       interval = setInterval(updateChrono, 1000);
     }
-    new Audio('sounds/CardFlip.mp3').play()
     // retourner la carte
     if (card.found == false && card.flipped == false) {
+      new Audio('sounds/CardFlip.mp3').play()
 
-      toogleImage(newCard, card.url);
+      tooglepictures(newCard, card.url);
 
       // mettre flipped à true
       card.flipped = true;
 
       // compter le nombre de flipped=true
-      let flippedcards = doublePaquetShuffled.filter((doublePaquetShuffled) => doublePaquetShuffled.flipped === true && doublePaquetShuffled.found === false);
-      let count = flippedcards.length;
+      let flippedCards = doublePaquetShuffled.filter((doublePaquetShuffled) => doublePaquetShuffled.flipped === true && doublePaquetShuffled.found === false);
+      let count = flippedCards.length;
 
       // si 1 = on ajoute la carte cliquée dans le tableau des comparaisons
       selectedCard.push(card);
@@ -245,13 +244,13 @@ let addCard = function (index) {
       if (count == 2) {
         console.log("selectedCard : ");
         console.log(selectedCard);
-        if (coupsMax>0) {
-          coupsMax-=1
+        if (maxAttempts>0) {
+          maxAttempts-=1
         }
         
 
         // on remet le compteur de true à 0
-        flippedcards = []
+        flippedCards = []
         count = 0;
 
         // on compare les 2 cartes?  
@@ -268,6 +267,7 @@ let addCard = function (index) {
 
           // si pairestrouvées = paires max => gagné
           if (foundPairs == nbrPairs) {
+            // if (foundPairs == 1) {
             setTimeout(() => {
               gameOver();
             }, 1000);
@@ -282,9 +282,9 @@ let addCard = function (index) {
           setTimeout(() => {
             // les 2 cartes sont retournée, flipped = false
             selectedCard[0].flipped = false;
-            toogleImage(card1, selectedCard[0].url);
+            tooglepictures(card1, selectedCard[0].url);
             selectedCard[1].flipped = false;
-            toogleImage(card2, selectedCard[1].url);
+            tooglepictures(card2, selectedCard[1].url);
             // le tableau des cartes tirées est remis à 0
             selectedCard = [];
             savedNode = [];
@@ -297,7 +297,7 @@ let addCard = function (index) {
   })
   parentLine.appendChild(newCard);
 };
-
+//#endregion
 
 
 function addLine() {
@@ -308,16 +308,20 @@ function addLine() {
   parentElement.appendChild(newLine); // on ajoute la ligne créée avec sa classe et son id
 }
 
-const toogleImage = function (card, url) {
+const tooglepictures = function (card, url) {
   // fonction pour retourner l'image, si elle est sur le dos, on la mets sur face, sinon on la met sur dos.  appelée dans addCard
-  // console.log(card.hasAttribute("style"), url);
+  console.log(card.hasAttribute("style"), url);
   if (
-    card.style.backgroundImage == 'url("images/DcDos.jpg")' ||
+    card.style.backgroundImage == 'url("pictures/DcDos.jpg")' ||
     !card.hasAttribute("style") // si l'image de fond est dos ou que la carte n'a pas d'image de fond (par contre je sais pas c'est quoi cette histoire de !card.hasAttribute("style")) mais si je l'enlève ça marche plus
   ) {
     card.style.backgroundImage = `url(${url})`; // alors il mets l'image du personnage
+    card.style.transition = "transform 0.5s ease"; // pour une transition lente
+    card.style.transform = "rotateY(180deg)";// et il la tourne de 180°
   } else {
-    card.style.backgroundImage = 'url("images/DcDos.jpg")'; // sinon il mets l'image de dos
+    card.style.backgroundImage = 'url("pictures/DcDos.jpg")'; // sinon il mets l'image de dos
+    card.style.transition = "transform 0.5s ease";  // pour une transition lente
+    card.style.transform = "rotateY(0deg)";// et il la tourne de 180°
   }
 };
 
@@ -336,21 +340,18 @@ afficherGrille();
 //#endregion
 
 
-//#region gestion du clic de souris
+//#region suppresion et activation du clic de souris
 
-function disableMouseClicks() {
-  // Capturez l'événement de clic de la souris sur le document
+function disableMouseClicks() { // désactiver la souris
   document.addEventListener('click', disableClickEvent, true);
 }
 
-function disableClickEvent(event) {
-  // Empêchez la propagation de l'événement de clic
+function disableClickEvent(event) { 
   event.stopPropagation();
   event.preventDefault();
 }
 
-function enableMouseClicks() {
-  // Supprimez le gestionnaire d'événements de clic de la souris du document
+function enableMouseClicks() { // réactiver la souris
   document.removeEventListener('click', disableClickEvent, true);
 }
 
@@ -360,9 +361,12 @@ function enableMouseClicks() {
 
 
 function gameOver() {
-  alert("Partie terminée, cliquez sur OK pour voire votre classement");
-  // calcul des scores avant d'envoyer sur fin
-  let scoreNbrAttemps=coupsMax*abscisse*ordonnee
+  document.getElementById('modal').style.display = 'block'; // pour révéler le Modal dans l'html
+  // alert("Partie terminée, cliquez sur OK pour voir votre classement");
+  
+  document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+  let scoreNbrAttemps=maxAttempts*abscisse*ordonnee
   let scoreTimeLeft=countDown*10
   let scoreTotal=scoreNbrAttemps+scoreTimeLeft
   
@@ -371,7 +375,7 @@ function gameOver() {
     score:scoreTotal,
     time:new Date()
   }
-  scoreTab.push(recordPlayer);
+  scoreTab.push(recordPlayer); // scoreTab qui a été récupéré lors de la récupération du localStorage
 
   let scoreValues = {
     pseudo:pseudo,
@@ -382,6 +386,8 @@ function gameOver() {
   localStorage.setItem("score", scoreJson);
  
   window.location.href = 'fin.html';
+}
+});
 }
 
 //#endregion

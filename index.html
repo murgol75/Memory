@@ -13,7 +13,7 @@
         <h1>DC Duel of Memories</h1>
     </header>
     <div class="main">
-        <img src="./images/presentation.jpg"><br>
+        <img src="./pictures/presentation.jpg"><br>
 
         <div class="text">
             <p>Bienvenue dans mon petit jeu de memory, veuillez choisir la taille de votre aire de jeu et indiquer votre
@@ -32,7 +32,7 @@
         </div>
 
         <div class="inscription"> 
-            <div class="level">
+            <div class="level"> <!-- choix du niveau-->
                 <div style="font-size: 50px; margin-top: 20px;">Choisissez la taille</div>
                 <div class="chooseLevel">
                     <button id="btn-4x3" class="level-button" onclick="selectLevel('4x3')">4x3</button>
@@ -43,12 +43,12 @@
                 </div>
             </div>
 
-            <div class="level">
+            <div class="playerName"> <!-- nom du joueur -->
                 <label for="pseudo">Votre Nom :</label>
                 <input type="text" id="pseudo" name="pseudo">
             </div>
-            <div class="valide">
-                <button id="valide" onclick="valide()">LET'S PLAY</button>
+            <div class="validate">
+                <button id="validate">LET'S PLAY</button>
             </div>
         </div>
     </div>
