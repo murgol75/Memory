@@ -1,5 +1,7 @@
+//#region variables
 let numberOfRow=0
 let numberOfColumn=0
+//#endregion
 
 //#region fonction pour mettre en surbrillance le bouton choisi et definir l'abscisse et l'ordonnée
 
@@ -48,3 +50,5 @@ document.getElementById("validate").addEventListener("click", function(event) {
   localStorage.setItem("gameData", gameDataJson);
   window.location.href = "jeu.html";
 })
+
+//#endregion
